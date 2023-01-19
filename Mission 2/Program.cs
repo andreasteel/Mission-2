@@ -10,6 +10,7 @@ namespace Mission_2
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("hello");
         }
     }
 }
