@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 //Write a program that simulates the rolling of two 6-sided dice. Use an Array to keep track of the
@@ -15,57 +11,55 @@ using System.Threading.Tasks;
 
 namespace Mission_2
 {
-    class Program
+    public static class Program
     {
         static void Main(string[] args)
         {
-            //welcome message and grabbing roll count
+            //creating array and random seed
+            Random dice = new Random();
+            int[] diceTotal = new int[11];
+
+
+            //welcome message and input of roll count
             Console.WriteLine("Welcome to the dice throwing simulator!");
             Console.Write("How mant dice rolls would you like to simulate? ");
             string Rolls = Console.ReadLine();
             int numRolls = Convert.ToInt32(Rolls);
 
-            //creating the arrays for the rolls
-           
-            int[] rollTotal = new int[11];
-            Random r = new Random();
 
-            //looping through rolls and getting random #s in array
+            //roll the dice and save the value 
             for (int i = 0; i < numRolls; i++)
             {
-                int rollResult = 0;
-                //roll the dice
-                rollResult = r.Next(1, 7);
-                rollResult += r.Next(1, 7);
+                int roll1 = dice.Next(1, 7);
+                int roll2 = dice.Next(1, 7);
+                int sum = roll1 + roll2;
 
-                //adding the rolls together
-                rollTotal[rollResult] += 1;
+                diceTotal[sum - 2] += 1;
             }
 
-
-             //print message
+            //print message
             Console.WriteLine("DICE ROLLING SIMULATION RESULTS");
             Console.WriteLine("Each '*' represnts 1% of the total number of rolls.");
             Console.WriteLine("Total number of rolls = " + numRolls);
 
-            for (int i = 0; i < rollTotal.Length; i++)
+
+            //convert to percent and add stars to string and then print for every num in array
+            for (int i = 0; i < diceTotal.Length; i++)
             {
-                float starsCount = (rollTotal[i] / (float)numRolls) * 100;
+                int percent = (diceTotal[i] / numRolls) * 100;
                 string stars = "";
 
-                for (int j = 0; i < starsCount; j++)
+                for (int j = 0; j < percent; j++)
                 {
                     stars += "*";
                 }
 
-                Console.WriteLine((i + 1) + ": " + stars);
+                Console.WriteLine((i + 2) + ": " + stars);
             }
 
-
-
-
+            //end message
             Console.WriteLine("Thank you for using the dice throwing simulator. Goodbye!");
-            
         }
+            
     }
 }
